@@ -18,6 +18,7 @@ func main() {
 	nombre = "Jorge"
 	edad = 22
 
-	fmt.Println("Tu nombre: "+ nombre)
+	fmt.Println("Tu nombre: " + nombre)
 	fmt.Println("Tu edad: " + strconv.Itoa(edad)) //strconv.Itoa convierte un int a string
+	fmt.Println("Tu edad:", edad)
 }
