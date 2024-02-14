@@ -1,5 +1,7 @@
 # Go
 
+![Robert Griesemer](https://upload.wikimedia.org/wikipedia/commons/c/ce/Robert_Griesemer.jpg) ![Ken Thompson](https://upload.wikimedia.org/wikipedia/commons/f/f8/Ken-Thompson-2019.png) ![Rob Pike](https://upload.wikimedia.org/wikipedia/commons/3/39/Rob-pike.jpg)
+
 ## Variables
 Una variable es un nombre simbólico que se asocia a un valor y a un tipo de dato. Las variables se pueden declarar de varias formas en Go, usando la palabra reservada `var` o la sintaxis abreviada `:=`. Por ejemplo:
 
@@ -709,4 +711,71 @@ fmt.Println(cuadrado(5)) // Imprime 25
 func(x int) {
   fmt.Println(x * 2)
 }(5) // Imprime 10
+```
+
+---
+
+## Go Modules
+
+Go es un lenguaje de programación de alto nivel, compilado, concurrente y con tipado estático, diseñado por Google. ¹² Su sintaxis es similar a C, pero con características como la seguridad de memoria, la recolección de basura, el tipado estructural y la concurrencia estilo CSP. ² Go tiene un sistema de gestión de paquetes y dependencias integrado, que se basa en los siguientes conceptos:
+
+- **Módulos**: son colecciones de paquetes relacionados que se versionan juntos. Un módulo se define por un archivo `go.mod` que especifica su nombre, versión y dependencias. Los módulos pueden ser publicados en repositorios remotos o locales. ³
+- **Paquetes**: son unidades de código fuente que se pueden importar y usar en otros paquetes. Un paquete se compone de uno o más archivos `.go` que pertenecen al mismo directorio. Cada paquete tiene un nombre, que se usa para referenciarlo desde otros paquetes. Los paquetes pueden ser estándar (incluidos en la biblioteca de Go) o de terceros (desarrollados por la comunidad). ⁴
+- **Dependencias**: son los paquetes que un paquete o un módulo necesita para funcionar correctamente. Las dependencias se declaran en el archivo `go.mod` de un módulo, usando la directiva `require`. Cada dependencia tiene un nombre (el import path del paquete) y una versión (un número semántico o un identificador de commit). ³
+
+Para trabajar con paquetes y dependencias en Go, se utiliza la herramienta `go` desde la línea de comandos. Algunos de los comandos más importantes son:
+
+- `go mod init`: crea un nuevo módulo e inicializa el archivo `go.mod` con el nombre y la versión del módulo. ⁵
+- `go get`: descarga e instala un paquete o un módulo, y actualiza el archivo `go.mod` con la dependencia correspondiente. También se puede usar para actualizar o cambiar la versión de una dependencia existente, usando el flag `-u` o especificando la versión deseada. 
+- `go mod tidy`: elimina las dependencias que no se usan en el código fuente, y añade las que faltan. También actualiza el archivo `go.sum`, que contiene los hashes criptográficos de las dependencias para garantizar su integridad. 
+
+A continuación se muestran algunos ejemplos de cómo usar estos comandos:
+
+```go
+// Crear un nuevo módulo llamado example.com/hello
+$ go mod init example.com/hello
+go: creating new go.mod: module example.com/hello
+
+// Importar y usar el paquete rsc.io/quote en el archivo main.go
+package main
+
+import (
+	"fmt"
+
+	"rsc.io/quote"
+)
+
+func main() {
+	fmt.Println(quote.Hello())
+}
+
+// Descargar e instalar el paquete rsc.io/quote y sus dependencias
+$ go get rsc.io/quote
+go: downloading rsc.io/quote v1.5.2
+go: downloading rsc.io/sampler v1.3.0
+go: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
+
+// Ver el contenido del archivo go.mod
+module example.com/hello
+
+go 1.16
+
+require rsc.io/quote v1.5.2
+
+// Actualizar el paquete rsc.io/quote a la versión v1.5.3
+$ go get rsc.io/quote@v1.5.3
+go: downloading rsc.io/quote v1.5.3
+go: downloading rsc.io/sampler v1.99.99
+go: downloading golang.org/x/text v0.0.0-20170915090833-1cbadb444a80
+
+// Ver el contenido del archivo go.mod
+module example.com/hello
+
+go 1.16
+
+require rsc.io/quote v1.5.3
+
+// Eliminar las dependencias que no se usan y actualizar el archivo go.sum
+$ go mod tidy
+go: downloading github.com/golang/protobuf v1.2.0
 ```
