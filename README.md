@@ -1,6 +1,10 @@
 # Go
 
-![Robert Griesemer](https://upload.wikimedia.org/wikipedia/commons/c/ce/Robert_Griesemer.jpg) ![Ken Thompson](https://upload.wikimedia.org/wikipedia/commons/f/f8/Ken-Thompson-2019.png) ![Rob Pike](https://upload.wikimedia.org/wikipedia/commons/3/39/Rob-pike.jpg)
+<div style="display:flex;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Robert_Griesemer.jpg" alt="Robert Griesemer" style="width:200px;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Ken-Thompson-2019.png" alt="Ken Thompson" style="width:200px;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Rob-pike.jpg" alt="Rob Pike" style="width:200px;">
+</div>
 
 ## Variables
 Una variable es un nombre simbólico que se asocia a un valor y a un tipo de dato. Las variables se pueden declarar de varias formas en Go, usando la palabra reservada `var` o la sintaxis abreviada `:=`. Por ejemplo:
