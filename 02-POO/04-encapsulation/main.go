@@ -1,24 +1,26 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/S4vi0r17/Go/course"
 )
 
 func main() {
-	Go := &course.Course{
-		Name:    "Go desde cero",
-		Slug:    "go-desde-cero",
-		Skills:  []string{"backend"},
-		Price:   12.34,
-		IsFree:  false,
-		UserIDs: []uint{12, 56, 89},
-		Classes: map[uint]string{
-			1: "Introducción",
-			2: "Estructuras",
-			3: "Maps",
-		},
-	}
+	Go := course.New("Go desde cero", "go-desde-cero", []string{"backend"}, 12.34, false, []uint{12, 56, 89}, map[uint]string{
+		1: "Introducción",
+		2: "Estructuras",
+		3: "Maps",
+	})
 
+	Go.SetClasses(map[uint]string{
+		1: "Introducción",
+		2: "Estructuras",
+		3: "Maps",
+	})
 	Go.PrintClasses()
-	Go.
+	Go.ChangePrice(15.5)
+	fmt.Println(Go.Price)
+	Go.SetName("Go desde cero 2")
+	fmt.Println(Go.Name())
 }
