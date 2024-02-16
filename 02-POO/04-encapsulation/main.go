@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"github.com/S4vi0r17/Go/course"
 )
 
 func main() {

@@ -1,8 +1,6 @@
 package courses
 
-import (
-	"fmt"
-)
+import "fmt"
 
 type Course struct {
 	Name    string
