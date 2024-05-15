@@ -2,18 +2,19 @@ package main
 
 import "fmt"
 
-func main() {
-	var arreglo [5]int
+func Array() {
+	var array [5]string
 
-	arreglo[0] = 1
-	arreglo[1] = 2
-	arreglo[2] = 3
-	arreglo[3] = 4
-	arreglo[4] = 5
+	array[0] = "🦎"
+	array[1] = "🐶"
+	array[2] = "🐢"
+	array[3] = "🐈"
+	array[4] = "💩"
 
-	fmt.Println(arreglo)
+	fmt.Println(array)
 
-	// Otra forma de declarar un arreglo
-	arreglo2 := [5]int{1, 2, 3, 4, 5}
-	fmt.Println(arreglo2)
+	// Other way to declare an array
+	// array2 := [5]int{1, 2, 3, 4, 5}
+	array2 := [...]int{1, 2, 3, 4, 5}
+	fmt.Println(array2)
 }

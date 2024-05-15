@@ -4,20 +4,20 @@ import (
 	"fmt"
 )
 
-func main() {
-	// Call the function
-	sayHello("Gustavo")
-	fmt.Println(sum(5, 5))
-	fmt.Println(sumAndSub(5, 5))
-	fmt.Println(sumAndSubNamed(5, 5))
+// func main() {
+// 	// Call the function
+// 	sayHello("Gustavo")
+// 	fmt.Println(sum(5, 5))
+// 	fmt.Println(sumAndSub(5, 5))
+// 	fmt.Println(sumAndSubNamed(5, 5))
 
-	emoji := "🦎"
-	fmt.Println(emoji)
-	byReference(&emoji)
-	fmt.Println(emoji)
+// 	emoji := "🦎"
+// 	fmt.Println(emoji)
+// 	byReference(&emoji)
+// 	fmt.Println(emoji)
 
-	fmt.Println(sumAll(1, 2, 3, 4, 5))
-}
+// 	fmt.Println(sumAll(1, 2, 3, 4, 5))
+// }
 
 // Function without return
 func sayHello(name string) {
