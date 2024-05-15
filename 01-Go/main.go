@@ -4,5 +4,6 @@ func main() {
 	// Pointers()
 	// Array()
 	// Slices()
-	Maps()
+	// Maps()
+	Structs()
 }

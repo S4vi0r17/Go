@@ -9,41 +9,40 @@ func Maps() {
 		"cow":     "moo",
 		"pig":     "oink",
 		"duck":    "quack",
-		"chicken": "cluck",
 		"sheep":   "baa",
 	}
 	fmt.Println(animals)
 
 	// Other way to declare a map
 	var fruits = make(map[string]string)
-	fruits["apple"]  = "🍎"
+	fruits["apple"] = "🍎"
 	fruits["banana"] = "🍌"
 	fruits["peach"] = "🍑"
 	fmt.Println(fruits)
- 
+
 	// Delete an element from a map
 	delete(animals, "sheep")
 	fmt.Println(animals)
- 
+
 	// Get a value from a map
 	animal := "cat"
 	sound := animals[animal]
 	fmt.Println(animal, ":", sound)
 
 	// Check if a key exists in a map
-	animal =  "sheep"
+	animal = "sheep"
 
 	sound, ok := animals[animal]
 	if ok {
-		 fmt.Println(animal, ":", sound)
+		fmt.Println(animal, ":", sound)
 	} else {
-		 fmt.Println(animal, "is not in the map")
+		fmt.Println(animal, "is not in the map")
 	}
 
 	// In one line
 	if sound, ok := animals[animal]; ok {
 		fmt.Println(animal, ":", sound)
-	}  else {
+	} else {
 		fmt.Println(animal, "is not in the map")
 	}
 }
