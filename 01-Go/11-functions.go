@@ -1,20 +1,20 @@
 package main
 
-// import "fmt"
+import "fmt"
 
-// func main() {
-// 	nums := []int{1, 10, 70, 20, 15}
-// 	evens := filter(nums, func(n int) bool {
-// 		return n%2 == 0
-// 	})
-// 	fmt.Println(evens)
+func Functions3() {
+	nums := []int{1, 10, 70, 20, 15}
+	evens := filter(nums, func(n int) bool {
+		return n%2 == 0
+	})
+	fmt.Println(evens)
 
-// 	x := hello("Gustavo")
-// 	fmt.Println(x("Benites"))
+	x := hello("Gustavo")
+	fmt.Println(x("Benites"))
 
-// 	// x := hello("Gustavo")("Benites")
-// 	// fmt.Println(x)
-// }
+	// x := hello("Gustavo")("Benites")
+	// fmt.Println(x)
+}
 
 func filter(nums []int, callback func(int) bool) []int {
 	var result []int

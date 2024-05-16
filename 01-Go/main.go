@@ -5,5 +5,7 @@ func main() {
 	// Array()
 	// Slices()
 	// Maps()
-	Structs()
+	// Structs()
+
+	Recover()
 }

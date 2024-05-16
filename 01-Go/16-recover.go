@@ -1,24 +1,18 @@
 package main
 
-// import "fmt"
+import "fmt"
 
-// func main() {
-// 	divide(10, 2)
-// 	divide(10, 0)
-// }
+func Recover() {
+	divideInt(10, 2)
+	divideInt(10, 0)
+}
 
-// func divide(a, b int) {
-// 	defer func() {
-// 		if r := recover(); r != nil {
-// 			fmt.Println("Recovered from", r)
-// 		}
-// 	}()
-// 	validateDivisor(b)
-// 	fmt.Println("Dividing", a, "by", b, "equals", a/b)
-// }
-
-// func validateDivisor(b int) {
-// 	if b == 0 {
-// 		panic("Cannot divide by zero")
-// 	}
-// }
+func divideInt(a, b int) {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("Recovered from", r)
+		}
+	}()
+	validateDivisor(b)
+	fmt.Println("Dividing", a, "by", b, "equals", a/b)
+}

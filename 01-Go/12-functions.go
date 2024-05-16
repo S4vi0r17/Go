@@ -1,14 +1,14 @@
 package main
 
-// import "fmt"
+import "fmt"
 
-// func main() {
-// 	x := func ()  {
-// 		fmt.Println("Hello from anonymous function")
-// 	}
-// 	x()
+func Functions4() {
+	x := func() {
+		fmt.Println("Hello from anonymous function")
+	}
+	x()
 
-// 	func (text string)  {
-// 		fmt.Println(text)
-// 	}("Hello from anonymous function with parameter")
-// }
+	func(text string) {
+		fmt.Println(text)
+	}("Hello from anonymous function with parameter")
+}
