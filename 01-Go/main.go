@@ -6,6 +6,13 @@ func main() {
 	// Slices()
 	// Maps()
 	// Structs()
-
-	Recover()
+	// If()
+	// Switch()
+	// For()
+	// Functions()
+	// Functions2()
+	// Functions3()
+	// Functions4()
+	Errors()
+	// Recover()
 }

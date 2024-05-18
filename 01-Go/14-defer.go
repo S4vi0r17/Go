@@ -1,24 +1,19 @@
 package main
 
-import (
-	"fmt"
-	"os"
-)
+import "fmt"
 
-func Defer2() {
-	file, err := os.Create("test.txt")
+func Defer() {
+	// defer: A defer statement defers the execution of a function until the surrounding function returns.
+	// defer fmt.Println("world")
 
-	if err != nil {
-		fmt.Println("Failed to create the file")
-		return
-	}
+	// fmt.Println("hello")
 
-	_, err = file.Write([]byte("Hello, World!"))
+	// defer fmt.Println("1")
+	// defer fmt.Println("2")
+	// defer fmt.Println("3")
 
-	defer file.Close()
-
-	if err != nil {
-		fmt.Println("Failed to write to the file")
-		return
-	}
+	a := 5
+	defer fmt.Println("deferred print:", a)
+	a = 10
+	fmt.Println("regular print:", a)
 }
