@@ -13,6 +13,9 @@ func main() {
 	// Functions2()
 	// Functions3()
 	// Functions4()
-	Errors()
-	// Recover()
+	// Errors()
+	// Defer()
+	// Defer2()
+	// Panic()
+	Recover()
 }

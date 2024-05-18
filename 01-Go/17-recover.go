@@ -5,6 +5,7 @@ import "fmt"
 func Recover() {
 	divideInt(10, 2)
 	divideInt(10, 0)
+	divideInt(20, 4)
 }
 
 func divideInt(a, b int) {

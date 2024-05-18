@@ -5,6 +5,7 @@ import "fmt"
 func Panic() {
 	div(10, 2)
 	div(10, 0)
+	div(20, 4)
 }
 
 func div(a, b int) {
