@@ -1,5 +1,7 @@
 package main
 
+import "01-Go/18-generics"
+
 func main() {
 	// Pointers()
 	// Array()
@@ -17,5 +19,6 @@ func main() {
 	// Defer()
 	// Defer2()
 	// Panic()
-	Recover()
+	// Recover()
+	generics.Any()
 }
