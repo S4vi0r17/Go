@@ -20,5 +20,6 @@ func main() {
 	// Defer2()
 	// Panic()
 	// Recover()
-	generics.Any()
+	// generics.Any()
+	generics.TypeParameter()
 }
