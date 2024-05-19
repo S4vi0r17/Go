@@ -21,5 +21,6 @@ func main() {
 	// Panic()
 	// Recover()
 	// generics.Any()
-	generics.TypeParameter()
+	// generics.TypeParameter()
+	generics.Constraints()
 }
