@@ -1,6 +1,6 @@
 package main
 
-import "01-Go/18-generics"
+import generics "01-Go/18-generics"
 
 func main() {
 	// Pointers()
@@ -22,5 +22,6 @@ func main() {
 	// Recover()
 	// generics.Any()
 	// generics.TypeParameter()
-	generics.Constraints()
+	// generics.Constraints()
+	generics.GenericTypes()
 }
