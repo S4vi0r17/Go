@@ -17,3 +17,9 @@ func Methods2() {
 	food.ChangePrice(15.99)
 	fmt.Println(food.Precio)
 }
+
+/*
+	Tip: Si un método en una interfaz tiene un puntero receptor, solo los valores que son punteros pueden implementar la interfaz.
+	Esto significa que si intentas implementar la interfaz con un valor que no es un puntero, obtendrás un error de compilación.
+	Poner todo en punteros es una buena práctica, ya que los métodos con punteros pueden modificar el valor que están llamando.
+*/
