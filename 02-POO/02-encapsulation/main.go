@@ -19,8 +19,8 @@ func main() {
 		3: "Maps",
 	})
 	Go.PrintClasses()
-	Go.ChangePrice(15.5)
-	fmt.Println(Go.Price)
+	// Go.ChangePrice(15.5) Go.ChangePrice undefined
+	fmt.Println(Go.Price())
 	Go.SetName("Go desde cero 2")
 	fmt.Println(Go.Name())
 }
