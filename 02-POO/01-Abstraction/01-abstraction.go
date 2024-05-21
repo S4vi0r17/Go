@@ -20,8 +20,14 @@ func (d *Dog) Speak() {
 	fmt.Println("I am a dog")
 }
 
-func main() {
-	dog := Dog{Animal{"Fido", 5}, "Doberman"}
+func Abstraction() {
+	dog := Dog{
+		Animal{
+			"Fido",
+			5,
+		},
+		"Doberman",
+	}
 	fmt.Println(dog.Name)
 	fmt.Println(dog.Breed)
 	dog.Speak()
