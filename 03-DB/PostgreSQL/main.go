@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
+	"PostgreSQL/storage"
 )
 
 func main() {
-	fmt.Println("Go PostgreSQL Tutorial")
+	storage.NewPostgresDB()
 }
