@@ -15,7 +15,7 @@ type Models []*Model
 
 type Storage interface {
 	Migrate() error
-	// Create(*Model) error
+	Create(*Model) error
 	// Update(*Model) error
 	// GetAll() (Models, error)
 	// GetByID(uint) (*Model, error)
@@ -32,4 +32,9 @@ func NewService(s Storage) *Service {
 
 func (s *Service) Migrate() error {
 	return s.storage.Migrate()
+}
+
+func (s *Service) Create(m *Model) error {
+	m.CreatedAt = time.Now()
+	return s.storage.Create(m)
 }

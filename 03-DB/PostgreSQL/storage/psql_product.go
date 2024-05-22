@@ -1,6 +1,7 @@
 package storage
 
 import (
+	"PostgreSQL/pkg/product"
 	"database/sql"
 	"fmt"
 )
@@ -15,6 +16,7 @@ const (
 		updated_at TIMESTAMP,
 		CONSTRAINT products_id_pk PRIMARY KEY (id)
 	)`
+	psqlCreateProduct = `INSERT INTO products (name, observations, price, created_at) VALUES ($1, $2, $3, $4) RETURNING id`
 )
 
 type PsqlProduct struct {
@@ -38,5 +40,27 @@ func (p *PsqlProduct) Migrate() error {
 	}
 
 	fmt.Println("Product migration executed successfully")
+	return nil
+}
+
+func (p *PsqlProduct) Create(m *product.Model) error {
+	stmt, err := p.db.Prepare(psqlCreateProduct)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	err = stmt.QueryRow(
+		m.Name,
+		stringToNull(m.Observations),
+		m.Price,
+		m.CreatedAt,
+	).Scan(&m.ID)
+
+	if err != nil {
+		return err
+	}
+
+	fmt.Println("Product created successfully")
 	return nil
 }

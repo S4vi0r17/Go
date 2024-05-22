@@ -33,3 +33,14 @@ func NewPostgresDB() {
 func Pool() *sql.DB {
 	return db
 }
+
+func stringToNull(s string) sql.NullString {
+	var ns sql.NullString
+	if s == "" {
+		ns.Valid = false
+	} else {
+		ns.String = s
+		ns.Valid = true
+	}
+	return ns
+}
