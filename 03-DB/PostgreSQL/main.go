@@ -30,16 +30,30 @@ func main() {
 	// 	log.Fatalf("invoiceitem.Migrate: %v", err)
 	// }
 
+	// // Create product
+	// storageProduct := storage.NewPsqlProduct(storage.Pool())
+	// serviceProduct := product.NewService(storageProduct)
+	// m := &product.Model{
+	// 	Name:         "Taco",
+	// 	Observations: "Mexican food",
+	// 	Price:        10.5,
+	// }
+	// if err := serviceProduct.Create(m); err != nil {
+	// 	log.Fatalf("product.Create: %v", err)
+	// }
+
+	// fmt.Printf("%+v\n", m)
+
+	// Get all products
 	storageProduct := storage.NewPsqlProduct(storage.Pool())
 	serviceProduct := product.NewService(storageProduct)
-	m := &product.Model{
-		Name:         "Taco",
-		Observations: "Mexican food",
-		Price:        10.5,
-	}
-	if err := serviceProduct.Create(m); err != nil {
-		log.Fatalf("product.Create: %v", err)
+	products, err := serviceProduct.GetAll()
+	if err != nil {
+		log.Fatalf("product.GetAll: %v", err)
 	}
 
-	fmt.Printf("%+v\n", m)
+	for _, p := range products {
+		fmt.Println(p)
+	}
+
 }

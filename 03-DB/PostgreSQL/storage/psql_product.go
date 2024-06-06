@@ -16,7 +16,8 @@ const (
 		updated_at TIMESTAMP,
 		CONSTRAINT products_id_pk PRIMARY KEY (id)
 	)`
-	psqlCreateProduct = `INSERT INTO products (name, observations, price, created_at) VALUES ($1, $2, $3, $4) RETURNING id`
+	psqlCreateProduct  = `INSERT INTO products (name, observations, price, created_at) VALUES ($1, $2, $3, $4) RETURNING id`
+	psqlGetAllProducts = `SELECT id, name, observations, price, created_at, updated_at FROM products`
 )
 
 type PsqlProduct struct {
@@ -63,4 +64,50 @@ func (p *PsqlProduct) Create(m *product.Model) error {
 
 	fmt.Println("Product created successfully")
 	return nil
+}
+
+func (p *PsqlProduct) GetAll() (product.Models, error) {
+	stmt, err := p.db.Prepare(psqlGetAllProducts)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query()
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var products product.Models
+	for rows.Next() {
+		m := &product.Model{}
+
+		observationsNull := sql.NullString{}
+		updatedAtNull := sql.NullTime{}
+
+		err := rows.Scan(
+			&m.ID,
+			&m.Name,
+			&observationsNull,
+			&m.Price,
+			&m.CreatedAt,
+			&updatedAtNull,
+		)
+
+		if err != nil {
+			return nil, err
+		}
+
+		m.Observations = observationsNull.String
+		m.UpdatedAt = updatedAtNull.Time
+
+		products = append(products, m)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return products, nil
 }
