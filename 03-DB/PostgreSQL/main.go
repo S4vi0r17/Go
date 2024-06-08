@@ -5,6 +5,8 @@ import (
 	// "PostgreSQL/pkg/invoiceitem"
 	"PostgreSQL/pkg/product"
 	"PostgreSQL/storage"
+	"database/sql"
+	"errors"
 	"fmt"
 	"log"
 )
@@ -44,16 +46,29 @@ func main() {
 
 	// fmt.Printf("%+v\n", m)
 
-	// Get all products
+	// // Get all products
+	// storageProduct := storage.NewPsqlProduct(storage.Pool())
+	// serviceProduct := product.NewService(storageProduct)
+	// products, err := serviceProduct.GetAll()
+	// if err != nil {
+	// 	log.Fatalf("product.GetAll: %v", err)
+	// }
+
+	// for _, p := range products {
+	// 	fmt.Println(p)
+	// }
+
+	// Get product by ID
 	storageProduct := storage.NewPsqlProduct(storage.Pool())
 	serviceProduct := product.NewService(storageProduct)
-	products, err := serviceProduct.GetAll()
-	if err != nil {
-		log.Fatalf("product.GetAll: %v", err)
-	}
 
-	for _, p := range products {
-		fmt.Println(p)
+	m, err := serviceProduct.GetByID(5)
+	switch {
+	case errors.Is(err, sql.ErrNoRows):
+		log.Fatalf("There is no product with this ID")
+	case err != nil:
+		log.Fatalf("product.GetByID: %v", err)
+	default:
+		fmt.Println(m)
 	}
-
 }
