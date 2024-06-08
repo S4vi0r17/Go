@@ -6,6 +6,10 @@ import (
 	"fmt"
 )
 
+type scanner interface {
+	Scan(dest ...interface{}) error
+}
+
 const (
 	psqlMigrateProduct = `CREATE TABLE IF NOT EXISTS products (
 		id SERIAL NOT NULL,
@@ -18,6 +22,7 @@ const (
 	)`
 	psqlCreateProduct  = `INSERT INTO products (name, observations, price, created_at) VALUES ($1, $2, $3, $4) RETURNING id`
 	psqlGetAllProducts = `SELECT id, name, observations, price, created_at, updated_at FROM products`
+	psqlGetProductByID = psqlGetAllProducts + ` WHERE id = $1`
 )
 
 type PsqlProduct struct {
@@ -81,26 +86,10 @@ func (p *PsqlProduct) GetAll() (product.Models, error) {
 
 	var products product.Models
 	for rows.Next() {
-		m := &product.Model{}
-
-		observationsNull := sql.NullString{}
-		updatedAtNull := sql.NullTime{}
-
-		err := rows.Scan(
-			&m.ID,
-			&m.Name,
-			&observationsNull,
-			&m.Price,
-			&m.CreatedAt,
-			&updatedAtNull,
-		)
-
+		m, err := scanProductRow(rows)
 		if err != nil {
 			return nil, err
 		}
-
-		m.Observations = observationsNull.String
-		m.UpdatedAt = updatedAtNull.Time
 
 		products = append(products, m)
 	}
@@ -110,4 +99,30 @@ func (p *PsqlProduct) GetAll() (product.Models, error) {
 	}
 
 	return products, nil
+}
+
+
+func scanProductRow(s scanner) (*product.Model, error) {
+	m := &product.Model{}
+
+	observationsNull := sql.NullString{}
+	updatedAtNull := sql.NullTime{}
+
+	err := s.Scan(
+		&m.ID,
+		&m.Name,
+		&observationsNull,
+		&m.Price,
+		&m.CreatedAt,
+		&updatedAtNull,
+	)
+
+	if err != nil {
+		return &product.Model{}, err
+	}
+
+	m.Observations = observationsNull.String
+	m.UpdatedAt = updatedAtNull.Time
+
+	return m, nil
 }
