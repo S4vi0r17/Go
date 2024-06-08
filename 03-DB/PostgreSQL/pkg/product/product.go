@@ -25,7 +25,7 @@ type Storage interface {
 	Create(*Model) error
 	// Update(*Model) error
 	GetAll() (Models, error)
-	// GetByID(uint) (*Model, error)
+	GetByID(uint) (*Model, error)
 	// Delete(uint) error
 }
 
