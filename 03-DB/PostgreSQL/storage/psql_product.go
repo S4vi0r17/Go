@@ -119,7 +119,7 @@ func (p *PsqlProduct) Update(m *product.Model) error {
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(
+	res, err := stmt.Exec(
 		m.Name,
 		stringToNull(m.Observations),
 		m.Price,
@@ -129,6 +129,16 @@ func (p *PsqlProduct) Update(m *product.Model) error {
 
 	if err != nil {
 		return err
+	}
+
+	//res: Resolve
+	rowsAffected, err := res.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected == 0 {
+		return fmt.Errorf("doens't exist a product with ID: %d", m.ID)
 	}
 
 	fmt.Println("Product updated successfully")

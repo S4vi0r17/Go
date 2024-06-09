@@ -5,9 +5,6 @@ import (
 	// "PostgreSQL/pkg/invoiceitem"
 	"PostgreSQL/pkg/product"
 	"PostgreSQL/storage"
-	"database/sql"
-	"errors"
-	"fmt"
 	"log"
 )
 
@@ -58,17 +55,33 @@ func main() {
 	// 	fmt.Println(p)
 	// }
 
-	// Get product by ID
+	// // Get product by ID
+	// storageProduct := storage.NewPsqlProduct(storage.Pool())
+	// serviceProduct := product.NewService(storageProduct)
+
+	// m, err := serviceProduct.GetByID(5)
+	// switch {
+	// case errors.Is(err, sql.ErrNoRows):
+	// 	log.Fatalf("There is no product with this ID")
+	// case err != nil:
+	// 	log.Fatalf("product.GetByID: %v", err)
+	// default:
+	// 	fmt.Println(m)
+	// }
+
+	// Update product
 	storageProduct := storage.NewPsqlProduct(storage.Pool())
 	serviceProduct := product.NewService(storageProduct)
 
-	m, err := serviceProduct.GetByID(5)
-	switch {
-	case errors.Is(err, sql.ErrNoRows):
-		log.Fatalf("There is no product with this ID")
-	case err != nil:
-		log.Fatalf("product.GetByID: %v", err)
-	default:
-		fmt.Println(m)
+	m := &product.Model{
+		ID:           3,
+		Name:         "Maki",
+		Observations: "Japanese food",
+		Price:        15.5,
+	}
+
+	err := serviceProduct.Update(m)
+	if err != nil {
+		log.Fatalf("product.Update: %v", err)
 	}
 }

@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"sync"
+	"time"
 
 	_ "github.com/lib/pq"
 )
@@ -43,4 +44,15 @@ func stringToNull(s string) sql.NullString {
 		ns.Valid = true
 	}
 	return ns
+}
+
+func timeToNull(t time.Time) sql.NullTime {
+	var nt sql.NullTime
+	if t.IsZero() {
+		nt.Valid = false
+	} else {
+		nt.Time = t
+		nt.Valid = true
+	}
+	return nt
 }
