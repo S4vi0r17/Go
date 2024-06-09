@@ -123,7 +123,7 @@ func (p *PsqlProduct) Update(m *product.Model) error {
 		m.Name,
 		stringToNull(m.Observations),
 		m.Price,
-		m.UpdatedAt,
+		timeToNull(m.UpdatedAt),
 		m.ID,
 	)
 
