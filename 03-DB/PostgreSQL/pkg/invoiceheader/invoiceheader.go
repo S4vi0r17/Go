@@ -1,6 +1,9 @@
 package invoiceheader
 
-import "time"
+import (
+	"database/sql"
+	"time"
+)
 
 type Model struct {
 	ID        uint
@@ -11,6 +14,7 @@ type Model struct {
 
 type Storage interface {
 	Migrate() error
+	CreateTx(*sql.Tx, *Model) error
 }
 
 type Service struct {

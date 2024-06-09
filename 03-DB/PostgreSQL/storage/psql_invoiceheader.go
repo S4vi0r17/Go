@@ -1,6 +1,7 @@
 package storage
 
 import (
+	"PostgreSQL/pkg/invoiceheader"
 	"database/sql"
 	"fmt"
 )
@@ -37,4 +38,14 @@ func (p *PsqlInvoiceHeader) Migrate() error {
 
 	fmt.Println("InvoiceHeader migration executed successfully")
 	return nil
+}
+
+func (p *PsqlInvoiceHeader) CreateTx(tx *sql.Tx, m *invoiceheader.Model) error {
+	stmt, err := tx.Prepare(`INSERT INTO invoice_headers (client) VALUES ($1) RETURNING id, created_at`)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	return stmt.QueryRow(m.Client).Scan(&m.ID, &m.CreatedAt)
 }

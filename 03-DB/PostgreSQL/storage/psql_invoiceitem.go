@@ -1,6 +1,7 @@
 package storage
 
 import (
+	"PostgreSQL/pkg/invoiceitem"
 	"database/sql"
 	"fmt"
 )
@@ -39,5 +40,22 @@ func (p *PsqlInvoiceItem) Migrate() error {
 	}
 
 	fmt.Println("InvoiceItem migration executed successfully")
+	return nil
+}
+
+func (p *PsqlInvoiceItem) CreateTx(tx *sql.Tx, headerId uint, ms invoiceitem.Models) error {
+	stmt, err := tx.Prepare(`INSERT INTO invoice_items (invoice_header_id, product_id) VALUES ($1, $2) RETURNING id, created_at`)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	for _, m := range ms {
+		err = stmt.QueryRow(headerId, m.ProductID).Scan(&m.ID, &m.CreatedAt)
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 }

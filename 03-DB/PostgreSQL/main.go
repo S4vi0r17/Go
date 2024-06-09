@@ -3,7 +3,10 @@ package main
 import (
 	// "PostgreSQL/pkg/invoiceheader"
 	// "PostgreSQL/pkg/invoiceitem"
-	"PostgreSQL/pkg/product"
+
+	"PostgreSQL/pkg/invoice"
+	"PostgreSQL/pkg/invoiceheader"
+	"PostgreSQL/pkg/invoiceitem"
 	"PostgreSQL/storage"
 	"log"
 )
@@ -85,12 +88,34 @@ func main() {
 	// 	log.Fatalf("product.Update: %v", err)
 	// }
 
-	// Delete product
-	storageProduct := storage.NewPsqlProduct(storage.Pool())
-	serviceProduct := product.NewService(storageProduct)
+	// // Delete product
+	// storageProduct := storage.NewPsqlProduct(storage.Pool())
+	// serviceProduct := product.NewService(storageProduct)
 
-	err := serviceProduct.Delete(4)
-	if err != nil {
-		log.Fatalf("product.Delete: %v", err)
+	// err := serviceProduct.Delete(4)
+	// if err != nil {
+	// 	log.Fatalf("product.Delete: %v", err)
+	// }
+
+	// Create invoice
+	storageHeader := storage.NewPsqlInvoiceHeader(storage.Pool())
+	storageItem := storage.NewPsqlInvoiceItem(storage.Pool())
+	storageInvoice := storage.NewPsqlInvoice(storage.Pool(), storageHeader, storageItem)
+
+	m := &invoice.Model{
+		Header: &invoiceheader.Model{
+			Client: "Gustavo Benites",
+		},
+		Items: invoiceitem.Models{
+			{ProductID: 1},
+			{ProductID: 2},
+			// &invoiceitem.Model{ProductID: 1},
+			// &invoiceitem.Model{ProductID: 2},
+		},
+	}
+
+	serviceInvoice := invoice.NewService(storageInvoice)
+	if err := serviceInvoice.Create(m); err != nil {
+		log.Fatalf("invoice.Create: %v", err)
 	}
 }
