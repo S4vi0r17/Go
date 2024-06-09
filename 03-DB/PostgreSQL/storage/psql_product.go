@@ -23,6 +23,7 @@ const (
 	psqlCreateProduct  = `INSERT INTO products (name, observations, price, created_at) VALUES ($1, $2, $3, $4) RETURNING id`
 	psqlGetAllProducts = `SELECT id, name, observations, price, created_at, updated_at FROM products`
 	psqlGetProductByID = psqlGetAllProducts + ` WHERE id = $1`
+	psqlUpdateProduct  = `UPDATE products SET name = $1, observations = $2, price = $3, updated_at = $4 WHERE id = $5`
 )
 
 type PsqlProduct struct {
@@ -109,6 +110,30 @@ func (p *PsqlProduct) GetByID(id uint) (*product.Model, error) {
 	defer stmt.Close()
 
 	return scanProductRow(stmt.QueryRow(id))
+}
+
+func (p *PsqlProduct) Update(m *product.Model) error {
+	stmt, err := p.db.Prepare(psqlUpdateProduct)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(
+		m.Name,
+		stringToNull(m.Observations),
+		m.Price,
+		m.UpdatedAt,
+		m.ID,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	fmt.Println("Product updated successfully")
+
+	return nil
 }
 
 func scanProductRow(s scanner) (*product.Model, error) {
