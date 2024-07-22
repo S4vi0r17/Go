@@ -76,6 +76,23 @@ func main() {
 	// // myProduct.ID = 3
 	// // storage.Pool().Unscoped().Delete(&myProduct)
 
+	// Transaction
+	/*
+	// Old way
+		storage.Pool().Model(&model.InvoiceItem{}).AddForeignKey("product_id", "products(id)", "RESTRICT", "RESTRICT")
+		storage.Pool().Model(&model.InvoiceItem{}).AddForeignKey("invoice_header_id", "invoice_headers(id)", "RESTRICT", "RESTRICT")
+	*/
+
+	// New way
+	invoice := model.InvoiceHeader{
+		Client: "John Doe",
+		InvoiceItems: []model.InvoiceItem{
+			{ProductID: 1},
+			{ProductID: 2},
+		},
+	}
+
+	storage.Pool().Create(&invoice)
 }
 
 // func ptrString(s string) *string {

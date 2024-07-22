@@ -9,13 +9,13 @@ type Product struct {
 	Name         string  `gorm:"size:255;not null"`
 	Observations *string  `gorm:"type:text"`
 	Price        float64 `gorm:"not null"`
-	InvoiceItems []InvoiceItem
+	InvoiceItems []InvoiceItem `gorm:"foreignKey:ProductID"`	
 }
 
 type InvoiceHeader struct {
 	gorm.Model
 	Client       string `gorm:"size:255;not null"`
-	InvoiceItems []InvoiceItem
+	InvoiceItems []InvoiceItem `gorm:"foreignKey:InvoiceHeaderID"`	
 }
 
 type InvoiceItem struct {
