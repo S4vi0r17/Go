@@ -3,7 +3,7 @@ package main
 import (
 	"GORM/model"
 	"GORM/storage"
-	"fmt"
+	// "fmt"
 )
 
 func main() {
@@ -49,11 +49,18 @@ func main() {
 	// fmt.Printf("%d %s %f\n", product.ID, product.Name, product.Price)
 
 	// Update all fields
-	var product model.Product
-	storage.Pool().First(&product, 3)
-	product.Name = "Fries"
-	product.Price = 4.5
-	storage.Pool().Save(&product)
+	// var product model.Product
+	// storage.Pool().First(&product, 3)
+	// product.Name = "Fries"
+	// product.Price = 4.5
+	// storage.Pool().Save(&product)
+
+	// Update only one field
+	// var product model.Product
+	// storage.Pool().Model(&product).Where("id = ?", 3).Update("price", 5.5)
+	myProduct := model.Product{}
+	myProduct.ID = 3
+	storage.Pool().Model(&myProduct).Updates(model.Product{Price: 5.5, Name: "Fries"})
 }
 
 // func ptrString(s string) *string {
