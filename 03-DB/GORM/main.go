@@ -44,9 +44,16 @@ func main() {
 	// }
 
 	// Read one
+	// var product model.Product
+	// storage.Pool().First(&product, 2)
+	// fmt.Printf("%d %s %f\n", product.ID, product.Name, product.Price)
+
+	// Update all fields
 	var product model.Product
-	storage.Pool().First(&product, 2)
-	fmt.Printf("%d %s %f\n", product.ID, product.Name, product.Price)
+	storage.Pool().First(&product, 3)
+	product.Name = "Fries"
+	product.Price = 4.5
+	storage.Pool().Save(&product)
 }
 
 // func ptrString(s string) *string {
