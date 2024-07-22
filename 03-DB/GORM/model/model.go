@@ -9,7 +9,7 @@ type Product struct {
 	Name         string  `gorm:"size:255;not null"`
 	Observations string  `gorm:"type:text"`
 	Price        float64 `gorm:"not null"`
-	Products     []Product
+	InvoiceItems []InvoiceItem
 }
 
 type InvoiceHeader struct {
