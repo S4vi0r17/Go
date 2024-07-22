@@ -58,9 +58,24 @@ func main() {
 	// Update only one field
 	// var product model.Product
 	// storage.Pool().Model(&product).Where("id = ?", 3).Update("price", 5.5)
-	myProduct := model.Product{}
-	myProduct.ID = 3
-	storage.Pool().Model(&myProduct).Updates(model.Product{Price: 5.5, Name: "Fries"})
+	// myProduct := model.Product{}
+	// myProduct.ID = 3
+	// storage.Pool().Model(&myProduct).Updates(model.Product{Price: 5.5, Name: "Fries"})
+
+	// Delete: soft delete
+	// var product model.Product
+	// // myProduct := model.Product{}
+	// // myProduct.ID = 3
+	// // storage.Pool().Delete(&myProduct)
+	// storage.Pool().Delete(&product, 3)
+
+	// Delete: hard delete
+	// var product model.Product
+	// storage.Pool().Unscoped().Delete(&product, 3)
+	// // myProduct := model.Product{}
+	// // myProduct.ID = 3
+	// // storage.Pool().Unscoped().Delete(&myProduct)
+
 }
 
 // func ptrString(s string) *string {
