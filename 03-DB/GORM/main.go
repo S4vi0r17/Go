@@ -1,6 +1,6 @@
 package main
 
-import "GoORM/storage"
+import "GORM/storage"
 
 func main() {
 	storage.NewPostgresDB()

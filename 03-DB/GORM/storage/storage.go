@@ -2,13 +2,20 @@ package storage
 
 import (
 	// "database/sql"
+
 	"log"
 	"sync"
+
 	// "time"
 
-	"github.com/jinzhu/gorm"
+	// Old import
+	// "github.com/jinzhu/gorm"
 
-	_ "github.com/jinzhu/gorm/dialects/postgres"
+	// _ "github.com/jinzhu/gorm/dialects/postgres"
+
+	// New import
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 var (
@@ -16,10 +23,23 @@ var (
 	once sync.Once
 )
 
+// func NewPostgresDB() {
+// 	once.Do(func() {
+// 		var err error
+// 		db, err = gorm.Open("postgres", "postgres://postgres:benites1234@localhost:5432/godb?sslmode=disable")
+// 		if err != nil {
+// 			log.Fatalf("Error opening database: %q", err)
+// 		}
+
+// 		log.Println("Successfully connected!")
+// 	})
+// }
+
 func NewPostgresDB() {
 	once.Do(func() {
 		var err error
-		db, err = gorm.Open("postgres", "postgres://postgres:benites1234@localhost:5432/godb?sslmode=disable")
+		dsn := "postgres://postgres:benites1234@localhost:5432/godb?sslmode=disable"
+		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 		if err != nil {
 			log.Fatalf("Error opening database: %q", err)
 		}
