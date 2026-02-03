@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 )
 
 // ============================================
@@ -150,11 +151,19 @@ func (e *ErrorMultiple) Error() string {
 		return "sin errores"
 	}
 
-	msg := fmt.Sprintf("%d errores:\n", len(e.errores))
+	// msg := fmt.Sprintf("%d errores:\n", len(e.errores))
+	// for i, err := range e.errores {
+	// 	msg += fmt.Sprintf("  %d. %v\n", i+1, err)
+	// }
+	// return msg
+	//
+
+	var b strings.Builder
+	fmt.Fprintf(&b, "%d errores:\n", len(e.errores))
 	for i, err := range e.errores {
-		msg += fmt.Sprintf("  %d. %v\n", i+1, err)
+		fmt.Fprintf(&b, "  %d. %v\n", i+1, err)
 	}
-	return msg
+	return b.String()
 }
 
 func (e *ErrorMultiple) Add(err error) {
